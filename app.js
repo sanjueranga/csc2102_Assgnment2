@@ -119,8 +119,10 @@ app.post("/register",function(req,res){
             
             res.render("vote",{status:"you can vote"});
           }else{
-            res.render("vote",{status:"you can't vote,please login"});
+            res.render("vote",{status:"wrong password"});
           }
+        }else{
+          res.render("vote",{status:"you can't vote,please login"});
         }
       }
     })
