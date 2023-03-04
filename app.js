@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 // mongoose.connect("mongodb://localhost:27017/votingAppDB", { useNewUrlParser: true });
 // gDuX85wF5mX9uxec
-const conn_str = "mongodb+srv://sanjueranga:sanju12@cluster0.rl958vp.mongodb.net/?retryWrites=true&w=majority";
+const conn_str = "mongodb+srv://sanjueranga:A8D0iBJyKqXgTtYy@cluster0.rl958vp.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(
 conn_str,
 { 
@@ -24,6 +24,7 @@ console.log("error in connection");
 } else {
 console.log("mongodb is connected");
 }});
+
 
 //creating users and votes schemas
 
