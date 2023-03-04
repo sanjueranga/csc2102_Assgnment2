@@ -71,7 +71,12 @@ app.get("/login",function(req,res){
  
   });
 
-
+  app.get("/vote",function(req,res){
+    
+    res.render("vote",{status:"you can't vote,please login"});
+   
+    });
+  
 
 
 app.post("/register",function(req,res){
