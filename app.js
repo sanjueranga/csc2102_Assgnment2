@@ -116,7 +116,9 @@ app.post("/register",function(req,res){
         if(foundUser){
           if(foundUser.password === password){
             
-            res.render("vote");
+            res.render("vote",{status:"you can vote"});
+          }else{
+            res.render("vote",{status:"you can't vote,please login"});
           }
         }
       }
