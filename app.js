@@ -161,7 +161,7 @@ app.post("/c_register",function(req,res){
 
 app.get("/c_register",function(req,res){
     
-  res.render("register")
+  res.render("c_register")
 
  })
 
