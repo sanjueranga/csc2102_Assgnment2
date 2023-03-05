@@ -42,8 +42,16 @@ const voteSchema={
   Vote3: String
 }
 
+const candidateSchema={
+  Name:String,
+  qualifications:String,
+  party: String,
+
+}
+
 const User = mongoose.model("User",userSchema);
 const Vote = mongoose.model("vote",voteSchema);
+const Candidate = mongoose.model("Candidate",candidateSchema);
 
 
 
@@ -132,6 +140,30 @@ app.post("/register",function(req,res){
       }
     })
   })
+
+
+
+app.post("/c_register",function(req,res){
+
+  const newCandidate = new Candidate({
+    Name: req.body.Name,
+    qualifications: req.body.qualifications
+  });
+
+  newUser.save(function(err){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/")
+    }
+  });
+})
+
+app.get("/c_register",function(req,res){
+    
+  res.render("register")
+
+ })
 
 
   let port = process.env.PORT;
