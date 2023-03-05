@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 // mongoose.connect("mongodb://localhost:27017/votingAppDB", { useNewUrlParser: true });
 // gDuX85wF5mX9uxec
-const conn_str = 
+const conn_str = "mongodb+srv://sanjueranga:A8D0iBJyKqXgTtYy@cluster0.rl958vp.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(
 conn_str,
 { 
@@ -24,6 +24,7 @@ console.log("error in connection");
 } else {
 console.log("mongodb is connected");
 }});
+
 
 //creating users and votes schemas
 
@@ -41,8 +42,16 @@ const voteSchema={
   Vote3: String
 }
 
+const candidateSchema={
+  Name:String,
+  qualifications:String,
+  party: String,
+
+}
+
 const User = mongoose.model("User",userSchema);
 const Vote = mongoose.model("vote",voteSchema);
+const Candidate = mongoose.model("Candidate",candidateSchema);
 
 
 
@@ -62,7 +71,7 @@ app.get("/",function(req,res){
 
   });
 
-
+  app.use(express.static(__dirname + '/public'));
 
 app.get("/login",function(req,res){
     
@@ -70,7 +79,12 @@ app.get("/login",function(req,res){
  
   });
 
-
+  app.get("/vote",function(req,res){
+    
+    res.render("vote",{status:"you can't vote,please login"});
+   
+    });
+  
 
 
 app.post("/register",function(req,res){
@@ -116,12 +130,40 @@ app.post("/register",function(req,res){
         if(foundUser){
           if(foundUser.password === password){
             
-            res.render("vote");
+            res.render("vote",{status:"you can vote"});
+          }else{
+            res.render("vote",{status:"wrong password"});
           }
+        }else{
+          res.render("vote",{status:"you can't vote,please login"});
         }
       }
     })
   })
+
+
+
+app.post("/c_register",function(req,res){
+
+  const newCandidate = new Candidate({
+    Name: req.body.Name,
+    qualifications: req.body.qualifications
+  });
+
+  newUser.save(function(err){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/")
+    }
+  });
+})
+
+app.get("/c_register",function(req,res){
+    
+  res.render("c_register")
+
+ })
 
 
   let port = process.env.PORT;
